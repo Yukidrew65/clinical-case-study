@@ -154,10 +154,14 @@
     align-items: baseline;
   }
   .objectives li:last-child { border-bottom: none; }
-  .objectives .pip {
+  .pip {
     width: 9px; height: 9px; border-radius: 50%;
-    flex-shrink: 0; transform: translateY(7px);
+    flex-shrink: 0;
   }
+  .objectives .pip {
+    transform: translateY(7px);
+  }
+  .tag.neutral { color: var(--muted); }
   .pip.red { background: var(--red); }
   .pip.amber { background: var(--amber); }
   .pip.green { background: var(--green); }
@@ -375,6 +379,73 @@
         <li><span class="pip blue"></span><p><strong>Complexity signal.</strong> Dual-sided product design, AI interaction design, clinical safety constraints, and NHS compliance — demonstrates senior-level systems thinking, not just screen design.</p></li>
         <li><span class="pip blue"></span><p><strong>HCI alignment.</strong> Directly applicable to postgraduate HCI research — conversational interfaces, cognitive load in high-stakes contexts, and AI-mediated health communication are live research areas.</p></li>
       </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">Project tags</div>
+      <div class="tags" style="margin-bottom: 40px;">
+        <span class="tag neutral">Product Design</span>
+        <span class="tag neutral">UX Design</span>
+        <span class="tag neutral">Interaction Design</span>
+        <span class="tag neutral">Conversational UI</span>
+        <span class="tag neutral">UX Research</span>
+        <span class="tag neutral">Service Design</span>
+        <span class="tag neutral">Health Tech</span>
+        <span class="tag neutral">Digital Health</span>
+        <span class="tag neutral">NHS</span>
+        <span class="tag neutral">AI-Native</span>
+        <span class="tag neutral">Responsible AI</span>
+        <span class="tag neutral">Safety-Critical Design</span>
+        <span class="tag neutral">Accessibility</span>
+        <span class="tag neutral">Design Systems</span>
+      </div>
+
+      <div class="label">Case study blueprint</div>
+      <h2>What the case study must contain</h2>
+      <p class="lede" style="margin-top: 16px; margin-bottom: 24px;">These are the non-negotiables. A mid-level designer can produce nice screens and a tidy process; what separates senior work is visible judgment under constraint. Each item below is something a hiring manager at Limbic, Bupa, or an NHS-adjacent team will look for as proof.</p>
+      
+      <ul class="why">
+        <li>
+          <span class="pip red"></span>
+          <p><strong>A sharp problem frame, not a feature description.</strong> Open by defining the actual problem — patients can't articulate symptoms under stress, GPs get fragmented histories in a shrinking consultation window — and why it matters clinically and operationally. Senior designers frame problems; junior ones jump to solutions.</p>
+        </li>
+        <li>
+          <span class="pip red"></span>
+          <p><strong>Real research with real constraints.</strong> Show the patient interviews and, critically, the GP advisor input. The presence of an actual clinician in your research is the single strongest credibility signal in the whole project. Include how you recruited, what you asked, and at least one finding that surprised you or changed your direction.</p>
+        </li>
+        <li>
+          <span class="pip amber"></span>
+          <p><strong>A decision log with documented tradeoffs.</strong> This is the most important senior artifact. For each major design decision, show the options you considered, what you chose, and why — tied to evidence, not taste. Seniority is legible in tradeoffs, not in polish.</p>
+        </li>
+        <li>
+          <span class="pip amber"></span>
+          <p><strong>Explicit AI boundaries — what the tool does NOT do.</strong> Show where you drew the line: the copilot surfaces and structures, it does not diagnose or advise. Document the refusal states and the red-flag escalation path. This is the difference between "I made an AI feature" and "I designed a safe AI feature in a regulated context."</p>
+        </li>
+        <li>
+          <span class="pip green"></span>
+          <p><strong>A clinical risk / red-flag taxonomy.</strong> Demonstrate that you understood the safety model — which signals are red flags, how severity is coded, what happens when one fires. Reference the framework you grounded it in (Manchester Triage System).</p>
+        </li>
+        <li>
+          <span class="pip green"></span>
+          <p><strong>Accessibility shown, not claimed.</strong> State a WCAG AA conformance target and prove it: contrast and type-size decisions reasoned for unwell/anxious/older users, plain-language symptom prompts with a stated reading level, and visible error-recovery and edit-back flows. Ideally one accessibility insight from your interviews that changed a design choice. Without this, drop the Accessibility tag.</p>
+        </li>
+        <li>
+          <span class="pip blue"></span>
+          <p><strong>Both surfaces designed coherently.</strong> Show the patient side optimized for reassurance and clarity, and the clinician side optimized for speed and signal density in a 10-minute window — and make clear they share one data flow. Designing for two opposing user types in one system is the systems-thinking signal.</p>
+        </li>
+        <li>
+          <span class="pip blue"></span>
+          <p><strong>Outcomes or validation, even if lightweight.</strong> You won't have shipped metrics, so show usability testing results, a validation session with your GP advisor, or a clear "what I'd measure and how" if this went live. Senior designers close the loop; they don't stop at the mockup.</p>
+        </li>
+        <li>
+          <span class="pip blue"></span>
+          <p><strong>An honest reflection.</strong> Close with what you'd do differently, what the open risks are, and what you learned. Confidence with self-awareness reads as senior; a flawless triumphant narrative reads as junior.</p>
+        </li>
+      </ul>
+      
+      <p style="margin-top: 32px; color: var(--muted); font-size: 16px;">The throughline across all of these: <strong>show your reasoning, show your constraints, and show what you chose not to do.</strong> That's what makes it senior.</p>
     </div>
   </section>
 </main>
