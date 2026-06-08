@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clinical Intake & Symptom Triage Copilot — UX Case Study Brief</title>
+<meta name="description" content="A dual-surface AI copilot for primary care. UX case study brief by Yukifumi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a18;
+    --paper: #f4f2ec;
+    --paper-card: #faf9f5;
+    --muted: #6f6c63;
+    --rule: #ddd8cc;
+    --accent: #d8542f;
+    --red: #c0392b;
+    --amber: #c47f15;
+    --green: #4a7c1a;
+    --blue: #2f6db5;
+    --max: 760px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Spline Sans', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: var(--accent); color: var(--paper); }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 28px; }
+
+  /* ─── Hero ─────────────────────────────── */
+  header {
+    padding: 88px 0 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .tag {
+    font-family: 'Spline Sans Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 100px;
+    border: 1px solid currentColor;
+  }
+  .tag.red { color: var(--red); }
+  .tag.blue { color: var(--blue); }
+  .tag.amber { color: var(--amber); }
+  .tag.green { color: var(--green); }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(2.4rem, 7vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  h1 .amp { color: var(--accent); font-style: italic; }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    font-family: 'Spline Sans Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .meta span { display: flex; align-items: center; gap: 7px; }
+  .meta .k { color: var(--ink); }
+
+  /* ─── Section structure ────────────────── */
+  section { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type { border-bottom: none; }
+
+  .label {
+    font-family: 'Spline Sans Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .label::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  .lede {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(1.25rem, 3.5vw, 1.6rem);
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+  }
+
+  p { color: #2c2a26; }
+  p + p { margin-top: 16px; }
+
+  /* ─── Split cards ──────────────────────── */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .card {
+    background: var(--paper-card);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 26px 24px;
+  }
+  .card h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .card h3 .dot { width: 9px; height: 9px; border-radius: 50%; }
+  .card p { font-size: 15px; color: var(--muted); line-height: 1.6; }
+
+  /* ─── Objective list ───────────────────── */
+  .objectives { list-style: none; }
+  .objectives li {
+    display: flex;
+    gap: 18px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .objectives li:last-child { border-bottom: none; }
+  .objectives .pip {
+    width: 9px; height: 9px; border-radius: 50%;
+    flex-shrink: 0; transform: translateY(7px);
+  }
+  .pip.red { background: var(--red); }
+  .pip.amber { background: var(--amber); }
+  .pip.green { background: var(--green); }
+  .pip.blue { background: var(--blue); }
+  .objectives li p { font-size: 16px; }
+
+  /* ─── Phases ───────────────────────────── */
+  .phase { display: flex; gap: 22px; padding: 24px 0; border-bottom: 1px solid var(--rule); }
+  .phase:last-child { border-bottom: none; }
+  .phase .num {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 44px;
+  }
+  .phase .body h3 {
+    font-family: 'Spline Sans', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    margin-bottom: 6px;
+  }
+  .phase .body p { font-size: 15px; color: var(--muted); line-height: 1.6; }
+
+  /* ─── Deliverables grid ────────────────── */
+  .deliv { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+  /* ─── Metrics ──────────────────────────── */
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; }
+  .metric { background: var(--paper-card); padding: 28px 16px; text-align: center; }
+  .metric .v {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .metric .l {
+    font-family: 'Spline Sans Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ─── Why list ─────────────────────────── */
+  .why li {
+    list-style: none;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    gap: 18px;
+    align-items: baseline;
+  }
+  .why li:last-child { border-bottom: none; }
+  .why .pip { transform: translateY(7px); }
+  .why strong { font-weight: 600; color: var(--ink); }
+  .why p { font-size: 16px; color: #2c2a26; }
+
+  /* ─── Footer ───────────────────────────── */
+  footer {
+    padding: 48px 0 80px;
+    border-top: 1px solid var(--rule);
+    font-family: 'Spline Sans Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* ─── Responsive ───────────────────────── */
+  @media (max-width: 620px) {
+    .split, .deliv { grid-template-columns: 1fr; }
+    .metrics { grid-template-columns: 1fr 1fr; }
+    header { padding: 60px 0 44px; }
+    section { padding: 44px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="tags">
+      <span class="tag red">High stakes</span>
+      <span class="tag blue">NHS-relevant</span>
+      <span class="tag amber">Regulated</span>
+      <span class="tag green">Portfolio-ready</span>
+    </div>
+    <h1>Clinical intake <span class="amp">&amp;</span> symptom triage copilot</h1>
+    <div class="meta">
+      <span><span class="k">Lead UX Designer</span> — Yukifumi</span>
+      <span><span class="k">Date</span> — May 2026</span>
+      <span><span class="k">Duration</span> — 10–14 weeks</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <div class="label">Project summary</div>
+      <p class="lede">A dual-surface AI copilot for primary care. The patient side helps people articulate symptoms clearly before a GP appointment — reducing the anxiety, vagueness, and clinical friction that come with self-reporting. The clinician side converts that input into a structured, triaged summary with automatic red-flag signal detection.</p>
+      <p style="margin-top: 22px; color: var(--muted);">This sits at the intersection of conversational AI, clinical safety, and NHS-aligned service design.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">The problem space</div>
+      <div class="split">
+        <div class="card">
+          <h3><span class="dot" style="background: var(--blue);"></span>Patient side</h3>
+          <p>Patients arrive underprepared — unsure how to describe symptoms, anxious about wasting a GP's time, and prone to either over-reporting or omitting critical details. Pre-appointment anxiety compounds recall errors.</p>
+        </div>
+        <div class="card">
+          <h3><span class="dot" style="background: var(--amber);"></span>Clinician side</h3>
+          <p>GPs receive fragmented, inconsistent histories. Critical symptoms are buried in noise. Time per consultation is shrinking. There is no structured intake layer between patient registration and the appointment itself.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">Design objectives</div>
+      <ul class="objectives">
+        <li><span class="pip red"></span><p>Build a conversational intake flow that guides patients without leading them — maintaining clinical accuracy while reducing pre-appointment anxiety.</p></li>
+        <li><span class="pip red"></span><p>Design a clinician-facing summary view that flags red-flag signals clearly, using established triage frameworks (Manchester Triage System).</p></li>
+        <li><span class="pip amber"></span><p>Define appropriate AI boundaries — what the tool surfaces vs what it must not attempt to diagnose or advise.</p></li>
+        <li><span class="pip amber"></span><p>Create an interaction model that accounts for health literacy variance, digital access barriers, and emotional state at point of use.</p></li>
+        <li><span class="pip green"></span><p>Ensure design decisions are grounded in NHS design principles, MHRA guidance, and existing GP workflow constraints.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">Research plan</div>
+      <div class="phase">
+        <div class="num">01</div>
+        <div class="body">
+          <h3>Secondary research — 2 weeks</h3>
+          <p>Open NHS datasets (NHS Digital), Manchester Triage System protocols, published literature on pre-appointment anxiety and digital health intake. Map the regulatory context (MHRA, NICE, NHS AI Lab guidance). Review competitor products: Limbic, Bupa's digital health suite, Flo Health.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="num">02</div>
+        <div class="body">
+          <h3>Patient interviews — 5 to 8 participants</h3>
+          <p>Semi-structured. Focus on pre-appointment experience, symptom articulation anxiety, trust in AI health tools, and past encounters where underprepared communication led to poor outcomes. Recruit across age range and health literacy levels.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="num">03</div>
+        <div class="body">
+          <h3>GP advisor sessions — 1 to 2 clinicians</h3>
+          <p>Identify via LinkedIn (NHS GP registrars or digital health-engaged GPs). Validate red-flag taxonomy, understand information they most need upfront, and stress-test the clinician summary design against real workflow pressures.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="num">04</div>
+        <div class="body">
+          <h3>Synthesis and framing</h3>
+          <p>Jobs-to-be-done mapping, affinity clustering, clinical risk taxonomy, and a dual-persona model (patient + clinician). Define what the AI can and cannot do within safe, regulated boundaries.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">Design deliverables</div>
+      <div class="deliv">
+        <div class="card">
+          <h3>Patient-facing surface</h3>
+          <p>Conversational intake flow, symptom articulation prompts, anxiety-aware interaction model, accessibility-first UI. Progress indicator, edit-back functionality, and clear AI disclosure language.</p>
+        </div>
+        <div class="card">
+          <h3>Clinician-facing surface</h3>
+          <p>Structured intake summary, red-flag signal layer (severity-coded), timeline view of symptom onset, and one-click escalation paths. Designed around a 10-minute GP consultation window.</p>
+        </div>
+        <div class="card">
+          <h3>Design system components</h3>
+          <p>Clinical card patterns, triage severity indicators, safe AI disclosure components, and a reusable conversational UI kit aligned to NHS design principles.</p>
+        </div>
+        <div class="card">
+          <h3>Research documentation</h3>
+          <p>Interview analysis report, clinical risk taxonomy, regulatory constraint map, and a decision log documenting every key design tradeoff and its evidence basis.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">Scope at a glance</div>
+      <div class="metrics">
+        <div class="metric"><div class="v">2</div><div class="l">User types</div></div>
+        <div class="metric"><div class="v">5–8</div><div class="l">Patient interviews</div></div>
+        <div class="metric"><div class="v">1–2</div><div class="l">GP advisors</div></div>
+        <div class="metric"><div class="v">12wk</div><div class="l">Target timeline</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="label">Why this case study matters</div>
+      <ul class="why">
+        <li><span class="pip blue"></span><p><strong>Market signal.</strong> Limbic, Bupa, and Flo are actively hiring UX designers with clinical AI and regulated product experience. This case study speaks directly to that brief.</p></li>
+        <li><span class="pip blue"></span><p><strong>Complexity signal.</strong> Dual-sided product design, AI interaction design, clinical safety constraints, and NHS compliance — demonstrates senior-level systems thinking, not just screen design.</p></li>
+        <li><span class="pip blue"></span><p><strong>HCI alignment.</strong> Directly applicable to postgraduate HCI research — conversational interfaces, cognitive load in high-stakes contexts, and AI-mediated health communication are live research areas.</p></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; width: 100%;">
+    <span>Yukifumi — Product Designer</span>
+    <span>Draft for team review · May 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
